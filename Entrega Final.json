@@ -1,0 +1,3080 @@
+{
+  "name": "Entrega Final",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        400,
+        368
+      ],
+      "id": "27c2e069-3565-45f1-8626-cdc88e581c3f",
+      "name": "No Requiere Procesamiento"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -160
+      ],
+      "id": "f4948d25-0ad7-4d0e-b5c3-f391c3803042",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "8x0Bb3dnm0uTq6mD",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": false,
+            "Requiere revisión humana": "={{ $('AI Agent').item.json.output.requiere_revision_humana }}",
+            "Estado": "=Procesado por IA",
+            "Área asignada": "={{ $('AI Agent').item.json.output.area }}",
+            "Resumen IA": "={{ $('AI Agent').item.json.output.resumen }}",
+            "Prioridad": "={{ $('AI Agent').item.json.output.prioridad }}",
+            "ID Ticket": "={{ $('¿Ticket Pendiente?').item.json.fields['ID Ticket'] }}"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Aprobado por Humano",
+                  "value": "Aprobado por Humano"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        816,
+        -512
+      ],
+      "id": "9bfd608a-8fb4-4d91-90c9-8fd492a8e3a4",
+      "name": "Actualizar Ticket",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"area\": \"Soporte Técnico\",\n  \"prioridad\": \"Media\",\n  \"resumen\": \"El cliente informa un problema con la aplicación.\",\n  \"requiere_revision_humana\": false\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        -160
+      ],
+      "id": "752bf415-ace8-4e78-b2fd-ed11850a6dbd",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e9ca18e9-5a85-4650-8b21-118c92e8f046",
+              "leftValue": "={{ $json.fields['Requiere revisión humana'] }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1040,
+        -512
+      ],
+      "id": "d4c2f082-a9cf-4662-b543-f684623411b7",
+      "name": "¿Requiere Revisión Humana?"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": false,
+            "Requiere revisión humana": true,
+            "ID Ticket": "={{ $('Actualizar Ticket').item.json.fields['ID Ticket'] }}",
+            "Estado": "En revisión"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Aprobado por Humano",
+                  "value": "Aprobado por Humano"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1312,
+        -688
+      ],
+      "id": "f81f8c8d-246e-42ad-85f5-955311a5564d",
+      "name": "Ticket En Revisión",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4e695b44-76ef-42ba-9775-6513568a9eb2",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1760,
+        -688
+      ],
+      "id": "3a83959f-afa6-4fae-b071-4a532f9872c2",
+      "name": "¿Aprobado?"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "peraltasantiago2020@gmail.com",
+        "subject": "=[HITL] Revisión requerida - Ticket #{{ $json.fields['ID Ticket'] }}",
+        "message": "=Hola,\n\nEl siguiente ticket fue clasificado automáticamente por el sistema y requiere revisión humana antes de continuar.\n\n━━━━━━━━━━━━━━━━━━━━\nTICKET #{{ $json.fields['ID Ticket'] }}\n━━━━━━━━━━━━━━━━━━━━\n\nCliente: {{ $json.fields['Cliente'] }}\n\nAsunto: {{ $json.fields['Asunto'] }}\n\nÁrea asignada: {{ $json.fields['Área asignada'] }}\n\nPrioridad: {{ $json.fields['Prioridad'] }}\n\nResumen:\n{{ $json.fields['Resumen IA'] }}\n\n━━━━━━━━━━━━━━━━━━━━\n\nPor favor, revisá la clasificación y decidí si corresponde derivar el ticket al área asignada.\n\nAprobá para continuar con la derivación o rechazá para detener el proceso.\n\nGracias,\nNexoTech - Mesa de Ayuda Inteligente",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "Aprobar",
+            "disapproveLabel": "Rechazar"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1536,
+        -688
+      ],
+      "id": "98b4a3a8-1baf-4f66-bb47-d767b0ae3cb3",
+      "name": "Enviar Mensaje y Esperar Aprobación",
+      "webhookId": "fad9911b-4328-49db-90e7-79f42da1c56d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lGoKMZo3YkUOkzMo",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": true,
+            "Requiere revisión humana": true,
+            "Estado": "Aprobado",
+            "ID Ticket": "={{ $('Actualizar Ticket').item.json.fields['ID Ticket'] }}",
+            "Resumen IA": "={{ $('Ticket En Revisión').item.json.fields['Resumen IA'] }}"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2016,
+        -864
+      ],
+      "id": "d7470ac3-2b66-4840-93a6-648cf77857ab",
+      "name": "Registrar Aprobación Humana",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": false,
+            "Requiere revisión humana": true,
+            "Estado": "Rechazado",
+            "ID Ticket": "={{ $('Actualizar Ticket').item.json.fields['ID Ticket'] }}"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2032,
+        -624
+      ],
+      "id": "fba77a23-f9cc-473d-a6e0-0a28b9919990",
+      "name": "Registrar Rechazo Humano",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "peraltasantiago2020@gmail.com",
+        "subject": "=[NexoTech] Derivación de ticket #{{ $('Actualizar Ticket').item.json.fields['ID Ticket'] }}",
+        "message": "=Hola,\n\nSe ha derivado un nuevo ticket para su atención.\n\nID Ticket:\n{{ $json.fields['ID Ticket'] }}\n\nCliente:\n{{ $json.fields['Cliente'] }}\n\nAsunto:\n{{ $json.fields['Asunto'] }}\n\nÁrea asignada:\n{{ $json.fields['Área asignada'] }}\n\nPrioridad:\n{{ $json.fields['Prioridad'] }}\n\nResumen:\n{{ $json.fields['Resumen IA'] }}\n\nDescripción:\n{{ $json.fields['Descripción'] }}\n\nEl ticket fue revisado y se encuentra listo para ser atendido.\n\nSaludos,\nMesa de Ayuda NexoTech",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2240,
+        -864
+      ],
+      "id": "07359215-c243-4857-9316-1f92bf1d61e7",
+      "name": "Derivar Ticket de Aprobación",
+      "webhookId": "50fc768b-fae3-4f59-b3ef-9a00e2866fe1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lGoKMZo3YkUOkzMo",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "peraltasantiago2020@gmail.com",
+        "subject": "=[NexoTech] Ticket derivado #{{ $json.fields['ID Ticket'] }}",
+        "message": "=Hola equipo,\n\nSe ha derivado automáticamente el siguiente ticket:\n\nTicket: #{{ $json.fields['ID Ticket'] }}\nCliente: {{ $json.fields['Cliente'] }}\nÁrea: {{ $json.fields['Área asignada'] }}\nPrioridad: {{ $json.fields['Prioridad'] }}\n\nResumen:\n{{ $json.fields['Resumen IA'] }}\n\nSaludos,\nNexoTech - Mesa de Ayuda Inteligente",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1328,
+        -416
+      ],
+      "id": "3055af8f-c3e3-4de6-b173-bf49c3cc990c",
+      "name": "Derivar Ticket ",
+      "webhookId": "0de9e142-a4a4-40ae-8e1a-789102067fa4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lGoKMZo3YkUOkzMo",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "peraltasantiago2020@gmail.com",
+        "subject": "=[NexoTech] Ticket rechazado #{{ $json.fields['ID Ticket'] }}",
+        "message": "=Hola,\n\nEl ticket fue rechazado durante la revisión humana.\n\nID Ticket:\n{{ $json.fields['ID Ticket'] }}\n\nCliente:\n{{ $json.fields['Cliente'] }}\n\nAsunto:\n{{ $json.fields['Asunto'] }}\n\nÁrea asignada:\n{{ $json.fields['Área asignada'] }}\n\nPrioridad:\n{{ $json.fields['Prioridad'] }}\n\nResumen:\n{{ $json.fields['Resumen IA'] }}\n\nDescripción:\n{{ $json.fields['Descripción'] }}\n\nEstado:\nRechazado\n\nEl ticket no continuará con el proceso de derivación.\n\nSaludos,\nMesa de Ayuda NexoTech",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2256,
+        -624
+      ],
+      "id": "27f7647b-338c-4ed2-b4e0-58d7bc2addf6",
+      "name": "Notificar Rechazo ",
+      "webhookId": "3d5dc457-0ead-4508-8d46-6db1270de4b4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lGoKMZo3YkUOkzMo",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "15501bf8-11df-4250-9067-e5c6f12802b7",
+              "name": "ticket_id",
+              "value": "={{ $('Actualizar Ticket').item.json.fields['ID Ticket'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1552,
+        -416
+      ],
+      "id": "bc8dfcbc-fa03-4e23-8a65-9e4be46de449",
+      "name": "Extraer ID Ticket"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Base de conocimiento interna para resolver tickets de soporte. Contiene procedimientos y criterios para problemas de acceso, facturación, aumentos de límite, aplicación móvil y escalamiento de tickets.",
+        "memoryKey": {
+          "__rl": true,
+          "value": "vector_store_key",
+          "mode": "list",
+          "cachedResultName": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        416,
+        16
+      ],
+      "id": "509cc1a7-acbf-4416-97c4-4d90ef321a47",
+      "name": "Simple Vector Store1"
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        176
+      ],
+      "id": "cf836d7d-7e38-4257-9b1f-9b6be7e531d4",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "authentication": "airtableOAuth2Api",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd/viwnDxwcP4rVEnAAR?blocks=hide",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd/viwnDxwcP4rVEnAAR?blocks=hide",
+          "mode": "url"
+        },
+        "triggerField": "Trigger",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -48
+      ],
+      "id": "77086722-9329-4c91-8714-f6842d7b60ba",
+      "name": "Ticket Recibido",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "403d12ce-56e1-409f-ad84-534d3a3ebbbf",
+      "name": "Simple Vector Store"
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        208
+      ],
+      "id": "02a9162d-ef1e-48b4-956c-e0fe32f2b06c",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        208
+      ],
+      "id": "b5f2bd49-846b-45df-9e3f-adf59d7dbcaa",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a32071c3-01e9-4f6f-821f-a8cf82c81344",
+              "name": "contenido",
+              "value": "KB-001 | Problemas de acceso\n\nCuando un usuario no puede acceder a un sistema, verificar primero las credenciales, el estado de la cuenta y la disponibilidad del servicio. Si el problema persiste, el ticket debe ser derivado a Soporte Técnico.\n\nKB-002 | Problemas de facturación\n\nAnte una consulta o inconveniente relacionado con una factura, revisar los datos de facturación y verificar si existen cargos o diferencias incorrectas. Los casos que requieran intervención especializada deben ser derivados a Administración.\n\nKB-003 | Solicitudes de aumento de límite\n\nLas solicitudes de aumento de límite deben ser revisadas por el área de Administración. Se debe registrar la solicitud y verificar la información disponible antes de tomar una decisión.\n\nKB-004 | Problemas con la aplicación móvil\n\nCuando un usuario reporta que la aplicación móvil presenta errores o se cierra inesperadamente, solicitar información sobre el dispositivo y el error observado. Si el problema persiste, derivar a Soporte Técnico.\n\nKB-005 | Criterios de escalamiento\n\nUn ticket debe ser derivado cuando el área que recibe la consulta no puede resolverla directamente o cuando requiere intervención de un área especializada. Soporte Técnico atiende problemas técnicos y Administración atiende consultas relacionadas con facturación y límites.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        816,
+        0
+      ],
+      "id": "41c5259c-2de1-4821-9fae-bea09e9b4b8a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "22cb9d42-3ab2-4a2c-85a4-2f2e1010e478",
+              "leftValue": "={{ $json.fields.Estado }}",
+              "rightValue": "Pendiente",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        112,
+        -48
+      ],
+      "id": "95174a46-268e-456b-91ae-ed4f2ffe36f2",
+      "name": "¿Ticket Pendiente?"
+    },
+    {
+      "parameters": {
+        "sendTo": "peraltasantiago2020@gmail.com",
+        "subject": "=Error en procesamiento IA - Ticket: {{ $('Ticket Recibido').item.json.fields['ID Ticket'] }}",
+        "message": "=Se produjo un error durante el procesamiento automático de un ticket.\n\nSe requiere revisión del equipo de soporte.\n\nTicket ID: {{ $('Ticket Recibido').item.json.fields['ID Ticket'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        944,
+        -240
+      ],
+      "id": "5326292e-a2fc-4a6b-9e02-f9886343098a",
+      "name": "Notificar ERROR",
+      "webhookId": "c008d795-f404-4f52-ae92-886d49f376c3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lGoKMZo3YkUOkzMo",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": false,
+            "Requiere revisión humana": false,
+            "id": "={{ $('Ticket Recibido').item.json.id }}",
+            "Estado": "Error"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Trigger",
+              "displayName": "Trigger",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha ultima modificación",
+              "displayName": "Fecha ultima modificación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        -240
+      ],
+      "id": "0f6e9a21-53ca-489f-9004-ef9f984641d2",
+      "name": "Actualizar en Airtable ",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": true,
+            "Requiere revisión humana": true,
+            "ID Ticket": "={{ $('Ticket Recibido').item.json.fields['ID Ticket'] }}",
+            "Estado": "Derivado"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2464,
+        -864
+      ],
+      "id": "2109c55d-02a9-410e-8f11-77e8c267539f",
+      "name": "Ticket de Aprobación - Derivado",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl2w5mpkgCKmFsJd",
+          "mode": "list",
+          "cachedResultName": "Tickets",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tbl2w5mpkgCKmFsJd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Aprobado": false,
+            "Requiere revisión humana": false,
+            "Estado": "Derivado",
+            "ID Ticket": "={{ Number($json.ticket_id) }}"
+          },
+          "matchingColumns": [
+            "ID Ticket"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID Ticket",
+              "displayName": "ID Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En revisión",
+                  "value": "En revisión"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Derivado",
+                  "value": "Derivado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Área asignada",
+              "displayName": "Área asignada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Soporte Técnico",
+                  "value": "Soporte Técnico"
+                },
+                {
+                  "name": "Ventas",
+                  "value": "Ventas"
+                },
+                {
+                  "name": "Administración",
+                  "value": "Administración"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Requiere revisión humana",
+              "displayName": "Requiere revisión humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de creación",
+              "displayName": "Fecha de creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha última actualización",
+              "displayName": "Fecha última actualización",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Ejecuciones",
+              "displayName": "Ejecuciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        -416
+      ],
+      "id": "6ccf3730-0f21-4297-9a48-7407062316b2",
+      "name": "Ticket Actualizado - Estado: DERIVADO",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblnyOxYaMT3VkzmJ",
+          "mode": "list",
+          "cachedResultName": "Ejecuciones",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tblnyOxYaMT3VkzmJ"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket relacionado": "={{ [ $('Ticket Actualizado - Estado: DERIVADO').item.json.id ] }}",
+            "Fecha de ejecución": "={{ $now }}",
+            "Estado de ejecución": "Finalizada",
+            "Resultado": "Aprobado"
+          },
+          "matchingColumns": [
+            "Ticket relacionado"
+          ],
+          "schema": [
+            {
+              "id": "ID Ejecución",
+              "displayName": "ID Ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Ticket relacionado",
+              "displayName": "Ticket relacionado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de ejecución",
+              "displayName": "Fecha de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje de error",
+              "displayName": "Mensaje de error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado de ejecución",
+              "displayName": "Estado de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Iniciada",
+                  "value": "Iniciada"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Finalizada",
+                  "value": "Finalizada"
+                },
+                {
+                  "name": "Fallida",
+                  "value": "Fallida"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        -416
+      ],
+      "id": "76133fae-ce51-48a0-b7d7-aca36fb84216",
+      "name": "Actualizar Tabla Ejecuciones - DERIVADO",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblnyOxYaMT3VkzmJ",
+          "mode": "list",
+          "cachedResultName": "Ejecuciones",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tblnyOxYaMT3VkzmJ"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket relacionado": "={{ [ $('Ticket de Aprobación - Derivado').item.json.id ] }}",
+            "Fecha de ejecución": "={{ $now }}",
+            "Estado de ejecución": "Finalizada",
+            "Resultado": "Aprobado"
+          },
+          "matchingColumns": [
+            "Ticket relacionado"
+          ],
+          "schema": [
+            {
+              "id": "ID Ejecución",
+              "displayName": "ID Ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Ticket relacionado",
+              "displayName": "Ticket relacionado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de ejecución",
+              "displayName": "Fecha de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje de error",
+              "displayName": "Mensaje de error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado de ejecución",
+              "displayName": "Estado de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Iniciada",
+                  "value": "Iniciada"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Finalizada",
+                  "value": "Finalizada"
+                },
+                {
+                  "name": "Fallida",
+                  "value": "Fallida"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2656,
+        -864
+      ],
+      "id": "b8436c10-bded-41bf-848a-77ecccb3d400",
+      "name": "Actualizar Tabla Ejecuciones - Aprobado (Derivado)",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appiXv1x0iMvwFfOa",
+          "mode": "list",
+          "cachedResultName": "Entrega Final - AI Automation",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblnyOxYaMT3VkzmJ",
+          "mode": "list",
+          "cachedResultName": "Ejecuciones",
+          "cachedResultUrl": "https://airtable.com/appiXv1x0iMvwFfOa/tblnyOxYaMT3VkzmJ"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket relacionado": "={{ [ $('Registrar Rechazo Humano').item.json.id ] }}",
+            "Fecha de ejecución": "={{ $now }}",
+            "Estado de ejecución": "Finalizada",
+            "Resultado": "Rechazado"
+          },
+          "matchingColumns": [
+            "Ticket relacionado"
+          ],
+          "schema": [
+            {
+              "id": "ID Ejecución",
+              "displayName": "ID Ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Ticket relacionado",
+              "displayName": "Ticket relacionado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de ejecución",
+              "displayName": "Fecha de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje de error",
+              "displayName": "Mensaje de error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado de ejecución",
+              "displayName": "Estado de ejecución",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Iniciada",
+                  "value": "Iniciada"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Finalizada",
+                  "value": "Finalizada"
+                },
+                {
+                  "name": "Fallida",
+                  "value": "Fallida"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2464,
+        -624
+      ],
+      "id": "6d7f46fc-3cbe-4966-a2b5-47a8599dc877",
+      "name": "Actualizar Tabla Ejecuciones - Rechazado",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "W8XzQ42n4nClAB5h",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Sos un agente inteligente de mesa de ayuda.\n\nTu función es analizar los tickets recibidos, utilizar la información disponible en el ticket y consultar la Base de Conocimiento (RAG) para fundamentar la clasificación y resolución del caso.\n\nIMPORTANTE – CONSULTA OBLIGATORIA DE LA BASE DE CONOCIMIENTO\n\nAntes de tomar una decisión sobre un ticket, consultá la herramienta \"Simple Vector Store1\", que contiene la Base de Conocimiento interna, cuando el caso esté relacionado con procedimientos, criterios de escalamiento o resolución documentados.\n\nLa información recuperada de la Base de Conocimiento debe utilizarse como contexto para determinar:\n- el área responsable;\n- la prioridad;\n- si requiere revisión humana;\n- y, cuando corresponda, el criterio de derivación del ticket.\n\nNo ignores la información obtenida de la Base de Conocimiento.\n\nSi la Base de Conocimiento contiene un procedimiento específico relacionado con el ticket, utilizalo como referencia para fundamentar el análisis.\n\nNo inventes procedimientos que no estén presentes en la información disponible.\n\nSi la Base de Conocimiento no contiene información relevante o suficiente para resolver el caso, continuá el análisis utilizando la información disponible en el ticket y aplicá las reglas de clasificación definidas en este prompt.\n\nAnaliza el siguiente ticket y clasifícalo según las reglas indicadas.\n\nAsunto:\n{{ $json.fields.Asunto }}\n\nDescripción:\n{{ $json.fields['Descripción'] }}\n\nREGLAS DE CLASIFICACIÓN\n\n1. ÁREA\n\nLa categoría debe ser obligatoriamente UNA de estas tres opciones:\n\n- Soporte Técnico\n- Ventas\n- Administración\n\nUtiliza exactamente estos valores.\n\nCriterios:\n\n- Soporte Técnico:\n  Problemas técnicos, errores de aplicaciones o sistemas, fallas de acceso, problemas de funcionamiento, problemas con dispositivos, software o infraestructura tecnológica.\n\n- Ventas:\n  Consultas sobre productos o servicios, precios, cotizaciones, contratación, compras, planes, renovaciones comerciales o información previa a una compra.\n\n- Administración:\n  Consultas relacionadas con facturación, pagos administrativos, documentación, comprobantes, cuentas, información contractual o gestiones administrativas.\n\n2. PRIORIDAD\n\nLa prioridad debe ser obligatoriamente UNA de estas tres opciones:\n\n- Alta\n- Media\n- Baja\n\nNunca utilices valores en inglés como \"High\", \"Medium\" o \"Low\".\n\nCriterios:\n\n- Alta:\n  Problemas críticos, imposibilidad de utilizar un servicio, errores que afectan operaciones importantes, problemas de seguridad o situaciones urgentes.\n\n- Media:\n  Problemas que afectan parcialmente al usuario o una operación, pero no representan un impacto crítico.\n\n- Baja:\n  Consultas generales, solicitudes simples, dudas o problemas con impacto reducido.\n\n3. REVISIÓN HUMANA\n\n\"requiere_revision_humana\" debe ser true cuando:\n\n- La prioridad sea Alta.\n- La información proporcionada sea insuficiente para clasificar correctamente el ticket.\n- Exista una situación crítica o ambigua que requiera una decisión humana.\n\nEn los demás casos debe ser false.\n\n4. RESUMEN\n\nGenera un resumen breve, claro y objetivo del problema o solicitud.\n\nNo inventes información que no esté presente en el ticket.\n\n5. REGLAS OBLIGATORIAS\n\n- No inventes datos.\n- No agregues categorías.\n- No traduzcas los valores permitidos.\n- \"area\" solo puede ser \"Soporte Técnico\", \"Ventas\" o \"Administración\".\n- \"prioridad\" solo puede ser \"Alta\", \"Media\" o \"Baja\".\n- \"requiere_revision_humana\" debe ser true o false.\n- Respeta exactamente los valores definidos.\n- El resultado debe seguir la estructura definida por el Structured Output Parser.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        400,
+        -384
+      ],
+      "id": "5084fe22-5a28-4d68-8754-aa1c5eabdb23",
+      "name": "AI Agent",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar Ticket": {
+      "main": [
+        [
+          {
+            "node": "¿Requiere Revisión Humana?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Requiere Revisión Humana?": {
+      "main": [
+        [
+          {
+            "node": "Ticket En Revisión",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Derivar Ticket ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket En Revisión": {
+      "main": [
+        [
+          {
+            "node": "Enviar Mensaje y Esperar Aprobación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Aprobado?": {
+      "main": [
+        [
+          {
+            "node": "Registrar Aprobación Humana",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Registrar Rechazo Humano",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Mensaje y Esperar Aprobación": {
+      "main": [
+        [
+          {
+            "node": "¿Aprobado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar Aprobación Humana": {
+      "main": [
+        [
+          {
+            "node": "Derivar Ticket de Aprobación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar Rechazo Humano": {
+      "main": [
+        [
+          {
+            "node": "Notificar Rechazo ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Derivar Ticket de Aprobación": {
+      "main": [
+        [
+          {
+            "node": "Ticket de Aprobación - Derivado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Derivar Ticket ": {
+      "main": [
+        [
+          {
+            "node": "Extraer ID Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer ID Ticket": {
+      "main": [
+        [
+          {
+            "node": "Ticket Actualizado - Estado: DERIVADO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Simple Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket Recibido": {
+      "main": [
+        [
+          {
+            "node": "¿Ticket Pendiente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Simple Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Simple Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Simple Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Ticket Pendiente?": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Requiere Procesamiento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar ERROR": {
+      "main": [
+        [
+          {
+            "node": "Actualizar en Airtable ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket Actualizado - Estado: DERIVADO": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Tabla Ejecuciones - DERIVADO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket de Aprobación - Derivado": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Tabla Ejecuciones - Aprobado (Derivado)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Rechazo ": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Tabla Ejecuciones - Rechazado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notificar ERROR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "29567b6c-56be-4bbe-8f15-e7b4ac635453",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ed9b0851898380a5e9b16822ee3e704e51e401df6b9aa7a739258747fec26f60"
+  },
+  "nodeGroups": [],
+  "id": "juRkimayja8sOvRM",
+  "tags": []
+}
